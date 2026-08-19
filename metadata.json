@@ -1,0 +1,6 @@
+{
+  "name": "PlotStories",
+  "description": "Premium real estate consultation and guidance website for SREA Infra Developers, featuring verified layouts, gated community projects, apartments, plots, and personalized consultancy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
