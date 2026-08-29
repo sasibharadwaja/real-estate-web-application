@@ -6,9 +6,7 @@ import {
   Clock,
   Sparkles,
   Loader2,
-  CheckCircle2,
-  ExternalLink,
-  ShieldCheck
+  CheckCircle2
 } from "lucide-react";
 import { ContactFormData } from "../types";
 
@@ -27,7 +25,6 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [emailLink, setEmailLink] = useState<string | null>(null);
 
   const locations = [
     { name: "Bengaluru", note: "Silicon Valley Hub" },
@@ -65,7 +62,6 @@ export default function ContactForm() {
     setLoading(true);
     setError(null);
     setSuccess(null);
-    setEmailLink(null);
 
     // Validate required fields
     if (!formData.fullName.trim() || !formData.phoneNumber.trim() || !formData.emailAddress.trim()) {
@@ -83,9 +79,9 @@ export default function ContactForm() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
 
-      if (response.ok && data.success) {
+      if (response.ok && data?.success) {
         setSuccess("Thank you for contacting PlotStories. We will get back to you shortly.");
         // Clear form
         setFormData({
@@ -98,16 +94,12 @@ export default function ContactForm() {
           budget: "",
           message: "",
         });
-
-        if (data.isTestAccount && data.testUrl) {
-          setEmailLink(data.testUrl);
-        }
       } else {
-        setError(data.message || "There was an error sending your message. Please try again.");
+        setError(data?.message || "There was an error sending your consultation request. Please try again.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Submission error:", err);
-      setError("Unable to connect to the mail server. Please try again later.");
+      setError("Unable to connect to the email service. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -235,27 +227,9 @@ export default function ContactForm() {
                   {success}
                 </p>
 
-                {emailLink && (
-                  <div className="p-4 bg-[#0a0a0a] border border-white/5 rounded-xl text-left mt-4">
-                    <div className="flex items-start space-x-2 text-xs text-slate-400 mb-2">
-                      <ShieldCheck className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
-                      <span><strong>Testing Mode:</strong> Because this app uses an automatically provisioned Ethereal SMTP server, you can preview the actual HTML email sent to Madhu's address in real-time below:</span>
-                    </div>
-                    <a
-                      href={emailLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1.5 text-xs text-white font-bold underline hover:text-slate-300"
-                    >
-                      <span>Open Ethereal Email Preview</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                )}
-
                 <button
                   onClick={() => setSuccess(null)}
-                  className="mt-6 px-6 py-3 bg-gradient-to-r from-slate-400 to-slate-200 text-black font-bold text-xs uppercase tracking-widest rounded transition-all cursor-pointer"
+                  className="mt-2 px-6 py-3 bg-gradient-to-r from-slate-400 to-slate-200 text-black font-bold text-xs uppercase tracking-widest rounded transition-all cursor-pointer hover:from-slate-300 hover:to-white"
                 >
                   Send Another Inquiry
                 </button>

@@ -8,13 +8,12 @@ import {
   Users,
   Award,
   Calendar,
-  Briefcase,
-  Camera
+  Briefcase
 } from "lucide-react";
 import MadhuPortrait from "./MadhuPortrait";
 
 export default function About() {
-  const [profileImage, setProfileImage] = useState<string | null>(() => {
+  const [profileImage] = useState<string | null>(() => {
     return localStorage.getItem("madhu_profile_image");
   });
   const [imageIndex, setImageIndex] = useState(0);
@@ -37,62 +36,6 @@ export default function About() {
       setImageIndex(prev => prev + 1);
     } else {
       setHasError(true);
-    }
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      const base64String = event.target?.result as string;
-      if (base64String) {
-        localStorage.setItem("madhu_profile_image", base64String);
-        setProfileImage(base64String);
-
-        try {
-          await fetch("/api/upload-profile", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ image: base64String }),
-          });
-        } catch (error) {
-          console.error("Error uploading image to server:", error);
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const base64String = event.target?.result as string;
-        if (base64String) {
-          localStorage.setItem("madhu_profile_image", base64String);
-          setProfileImage(base64String);
-          try {
-            await fetch("/api/upload-profile", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ image: base64String }),
-            });
-          } catch (err) {
-            console.error(err);
-          }
-        }
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -152,63 +95,35 @@ export default function About() {
           
           {/* Column 1: Image container */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative group max-w-sm w-full overflow-hidden flex justify-center">
-              <label
-                htmlFor="profile-upload"
-                className="cursor-pointer block relative w-full"
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-              >
-                {profileImage ? (
-                  <div className="relative overflow-hidden rounded-xl w-full">
-                    <img
-                      src={profileImage}
-                      alt="Madhu Bharadwaja"
-                      className="w-full h-auto object-cover rounded-xl transition-all duration-500 aspect-[4/5]"
-                      referrerPolicy="no-referrer"
-                    />
-                    {/* Soft vignette overlays to isolate and blend edges softly into pure solid black */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_45%,_#000000_100%)] pointer-events-none mix-blend-multiply" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
-                  </div>
-                ) : !hasError ? (
-                  <div className="relative overflow-hidden rounded-xl w-full">
-                    <img
-                      src={candidatePaths[imageIndex]}
-                      alt="Madhu Bharadwaja"
-                      className="w-full h-auto object-cover rounded-xl transition-all duration-500 aspect-[4/5]"
-                      onError={handleImageError}
-                      referrerPolicy="no-referrer"
-                    />
-                    {/* Soft vignette overlays to isolate and blend edges softly into pure solid black */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_45%,_#000000_100%)] pointer-events-none mix-blend-multiply" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
-                  </div>
-                ) : (
-                  <MadhuPortrait className="w-full h-auto object-cover rounded-xl transition-all duration-500" />
-                )}
-
-                {/* Upload Hover Overlay */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center rounded-xl">
-                  <div className="p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-2 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                    <Camera className="w-6 h-6" />
-                  </div>
-                  <span className="text-white text-xs font-semibold tracking-wider">
-                    {profileImage ? "Update Profile Photo" : "Upload Profile Photo"}
-                  </span>
-                  <span className="text-[10px] text-slate-400 mt-1">
-                    Drag & drop or click to change
-                  </span>
+            <div className="relative max-w-sm w-full overflow-hidden flex justify-center">
+              {profileImage ? (
+                <div className="relative overflow-hidden rounded-xl w-full">
+                  <img
+                    src={profileImage}
+                    alt="Madhu Bharadwaja"
+                    className="w-full h-auto object-cover rounded-xl aspect-[4/5]"
+                    referrerPolicy="no-referrer"
+                  />
+                  {/* Soft vignette overlays to isolate and blend edges softly into pure solid black */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_45%,_#000000_100%)] pointer-events-none mix-blend-multiply" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
                 </div>
-              </label>
-
-              <input
-                type="file"
-                id="profile-upload"
-                className="hidden"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+              ) : !hasError ? (
+                <div className="relative overflow-hidden rounded-xl w-full">
+                  <img
+                    src={candidatePaths[imageIndex]}
+                    alt="Madhu Bharadwaja"
+                    className="w-full h-auto object-cover rounded-xl aspect-[4/5]"
+                    onError={handleImageError}
+                    referrerPolicy="no-referrer"
+                  />
+                  {/* Soft vignette overlays to isolate and blend edges softly into pure solid black */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_45%,_#000000_100%)] pointer-events-none mix-blend-multiply" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
+                </div>
+              ) : (
+                <MadhuPortrait className="w-full h-auto object-cover rounded-xl" />
+              )}
             </div>
 
             {/* Quick Contact Badges under portrait */}

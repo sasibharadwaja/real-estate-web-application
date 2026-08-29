@@ -1,33 +1,28 @@
-import express from "express";
-import path from "path";
-import { createServer as createViteServer } from "vite";
+import type { IncomingMessage, ServerResponse } from "http";
 import { Resend } from "resend";
-import dotenv from "dotenv";
-import fs from "fs";
 
-dotenv.config();
+export default async function handler(req: any, res: any) {
+  // Only accept POST requests
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      success: false,
+      message: "Method Not Allowed",
+    });
+  }
 
-const app = express();
-const PORT = 3000;
-
-// Set high limits for base64 image payload upload
-app.use(express.json({ limit: "10mb" }));
-
-// API contact endpoint using Resend
-app.post("/api/contact", async (req, res) => {
   try {
     const {
       fullName,
       phoneNumber,
       city,
       emailAddress,
-      interestedIn,
-      preferredLocation,
+      interestedIn = "Plot & Flat",
+      preferredLocation = "Nellore",
       budget,
       message,
-    } = req.body;
+    } = req.body || {};
 
-    // Validation
+    // Validate required fields
     if (!fullName || !phoneNumber || !emailAddress) {
       return res.status(400).json({
         success: false,
@@ -47,11 +42,11 @@ app.post("/api/contact", async (req, res) => {
     const resend = new Resend(apiKey);
     const recipientEmail = process.env.BUSINESS_EMAIL || "bmsrao2001@gmail.com";
     const fromEmail = process.env.RESEND_FROM_EMAIL || "PlotStories Consultation <onboarding@resend.dev>";
-    const emailSubject = `[PlotStories Lead] ${fullName} - Interested in ${interestedIn || "Plot & Flat"}`;
+    const emailSubject = `[PlotStories Lead] ${fullName} - Interested in ${interestedIn}`;
 
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #ffffff; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-        <!-- Silver and Black Premium Header -->
+        <!-- Silver and Black Header -->
         <div style="background: linear-gradient(135deg, #111111 0%, #2a2a2a 100%); color: #ffffff; padding: 24px; text-align: center; border-bottom: 4px solid #a1a1aa;">
           <h2 style="margin: 0; font-size: 24px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">PlotStories</h2>
           <p style="margin: 4px 0 0 0; font-size: 12px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px;">Premium Real Estate Consultation Request</p>
@@ -81,12 +76,12 @@ app.post("/api/contact", async (req, res) => {
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 10px 0; font-weight: bold; color: #475569;">Interested In:</td>
               <td style="padding: 10px 0; color: #0f172a; font-weight: 600;">
-                <span style="background-color: #e2e8f0; color: #1e293b; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${interestedIn || "Plot & Flat"}</span>
+                <span style="background-color: #e2e8f0; color: #1e293b; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${interestedIn}</span>
               </td>
             </tr>
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 10px 0; font-weight: bold; color: #475569;">Preferred Location:</td>
-              <td style="padding: 10px 0; color: #0f172a; font-weight: 600;">${preferredLocation || "Nellore"}</td>
+              <td style="padding: 10px 0; color: #0f172a; font-weight: 600;">${preferredLocation}</td>
             </tr>
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 10px 0; font-weight: bold; color: #475569;">Estimated Budget:</td>
@@ -118,8 +113,8 @@ Full Name: ${fullName}
 Phone Number: ${phoneNumber}
 Email Address: ${emailAddress}
 City: ${city || "Not provided"}
-Interested In: ${interestedIn || "Plot & Flat"}
-Preferred Location: ${preferredLocation || "Nellore"}
+Interested In: ${interestedIn}
+Preferred Location: ${preferredLocation}
 Estimated Budget: ${budget || "Not specified"}
 
 Client Message:
@@ -153,70 +148,10 @@ Sent at: ${new Date().toLocaleString()}
       id: data?.id,
     });
   } catch (error: any) {
-    console.error("Error sending email via Resend:", error);
+    console.error("Error in /api/contact handler:", error);
     return res.status(500).json({
       success: false,
       message: error.message || "There was an error processing your inquiry. Please try again later.",
     });
   }
-});
-
-// API profile photo upload endpoint
-app.post("/api/upload-profile", async (req, res) => {
-  try {
-    const { image } = req.body;
-    if (!image) {
-      return res.status(400).json({ success: false, message: "No image provided" });
-    }
-
-    const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
-    const buffer = Buffer.from(base64Data, "base64");
-
-    const rootPath = path.join(process.cwd(), "madhu_profile.jpg");
-    fs.writeFileSync(rootPath, buffer);
-
-    const distDir = path.join(process.cwd(), "dist");
-    if (fs.existsSync(distDir)) {
-      fs.writeFileSync(path.join(distDir, "madhu_profile.jpg"), buffer);
-    }
-
-    console.log("[Server] Madhu's profile photo saved successfully.");
-    return res.status(200).json({ success: true, url: "/madhu_profile.jpg" });
-  } catch (error: any) {
-    console.error("Error uploading profile picture:", error);
-    return res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-// Start server
-async function startServer() {
-  // Directly serve madhu_profile.jpg if it exists
-  app.get("/madhu_profile.jpg", (req, res, next) => {
-    const filePath = path.join(process.cwd(), "madhu_profile.jpg");
-    if (fs.existsSync(filePath)) {
-      res.sendFile(filePath);
-    } else {
-      next();
-    }
-  });
-
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
-  }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
 }
-
-startServer();
