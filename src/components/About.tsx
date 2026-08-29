@@ -13,22 +13,16 @@ import {
 import MadhuPortrait from "./MadhuPortrait";
 
 export default function About() {
-  const [profileImage] = useState<string | null>(() => {
-    return localStorage.getItem("madhu_profile_image");
-  });
   const [imageIndex, setImageIndex] = useState(0);
   const [hasError, setHasError] = useState(false);
 
   const candidatePaths = [
+    "/assets/madhu.png",
+    "/madhu.png",
     "/madhu_profile.jpg",
     "/madhu_bharadwaja.jpg",
-    "/madhu bharadwaja.JPG",
-    "/madhu_bharadwaja.JPG",
-    "/madhu_bharadwaja.jpeg",
-    "/madhu_bharadwaja.png",
-    "/madhu.jpg",
+    "/assets/madhu_bharadwaja.jpg",
     "/profile.jpg",
-    "/assets/madhu_bharadwaja.jpg"
   ];
 
   const handleImageError = () => {
@@ -96,19 +90,7 @@ export default function About() {
           {/* Column 1: Image container */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="relative max-w-sm w-full overflow-hidden flex justify-center">
-              {profileImage ? (
-                <div className="relative overflow-hidden rounded-xl w-full">
-                  <img
-                    src={profileImage}
-                    alt="Madhu Bharadwaja"
-                    className="w-full h-auto object-cover rounded-xl aspect-[4/5]"
-                    referrerPolicy="no-referrer"
-                  />
-                  {/* Soft vignette overlays to isolate and blend edges softly into pure solid black */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_45%,_#000000_100%)] pointer-events-none mix-blend-multiply" />
-                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
-                </div>
-              ) : !hasError ? (
+              {!hasError ? (
                 <div className="relative overflow-hidden rounded-xl w-full">
                   <img
                     src={candidatePaths[imageIndex]}
