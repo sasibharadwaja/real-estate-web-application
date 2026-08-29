@@ -104,7 +104,13 @@ export default function About() {
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
                 </div>
               ) : (
-                <MadhuPortrait className="w-full h-auto object-cover rounded-xl" />
+                <img
+                src={candidatePaths[imageIndex]}
+                alt="Madhu Bharadwaja"
+                className="w-full h-auto object-cover rounded-xl aspect-[4/5]"
+                onError={handleImageError}
+                referrerPolicy="no-referrer"
+                />
               )}
             </div>
 
