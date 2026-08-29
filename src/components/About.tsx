@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import madhuImage from "../../assets/madhu.png";
 import {
   Clock,
   ShieldCheck,
@@ -17,12 +18,7 @@ export default function About() {
   const [hasError, setHasError] = useState(false);
 
   const candidatePaths = [
-    "/assets/madhu.png",
-    "/madhu.png",
-    "/madhu_profile.jpg",
-    "/madhu_bharadwaja.jpg",
-    "/assets/madhu_bharadwaja.jpg",
-    "/profile.jpg",
+    madhuImage,
   ];
 
   const handleImageError = () => {
