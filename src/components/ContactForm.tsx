@@ -4,6 +4,7 @@ import {
   Mail,
   Phone,
   Clock,
+  MessageCircle,
   Sparkles,
   Loader2,
   CheckCircle2
@@ -171,7 +172,7 @@ export default function ContactForm() {
             <div className="space-y-4 mt-6 lg:mt-0">
               <div className="flex items-center space-x-4 bg-[#0a0a0a] border border-white/5 p-4 rounded-2xl">
                 <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-slate-300 shrink-0">
-                  <Phone className="w-4 h-4" />
+                  <MessageCircle className="w-4 h-4" />
                 </div>
                 <div>
                   <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">WhatsApp</p>

@@ -5,6 +5,7 @@ import {
   Linkedin,
   Youtube,
   Phone,
+  MessageCircle,
   Mail,
   MapPin,
   ArrowUp
@@ -122,7 +123,7 @@ export default function Footer({ onNavClick }: FooterProps) {
                 </div>
               </li>
               <li className="flex items-start space-x-3 text-xs text-slate-400">
-                <Phone className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+                <MessageCircle className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-slate-500 text-[9px] uppercase font-bold tracking-widest leading-none mb-1">WhatsApp</p>
                   <a
