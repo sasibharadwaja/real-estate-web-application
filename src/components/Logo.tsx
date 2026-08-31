@@ -1,4 +1,5 @@
 import React from "react";
+import logoSrc from "../../assets/plotstorieslogo.png";
 
 interface LogoProps {
   className?: string;
@@ -11,7 +12,7 @@ export default function Logo({
 }: LogoProps) {
   return (
     <img
-      src="/assets/plotstorieslogo.png"
+      src={logoSrc}
       alt="PlotStories"
       className={`${className} select-none object-contain`}
       style={{
