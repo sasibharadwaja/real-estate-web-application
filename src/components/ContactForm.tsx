@@ -16,8 +16,8 @@ export default function ContactForm() {
     phoneNumber: "",
     city: "",
     emailAddress: "",
-    interestedIn: "Plot & Flat",
-    preferredLocation: "Nellore",
+    interestedIn: "",
+    preferredLocation: "",
     budget: "",
     message: "",
   });
@@ -174,9 +174,14 @@ export default function ContactForm() {
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Call or WhatsApp</p>
-                  <a href="tel:+919490321363" className="text-sm font-bold text-white hover:text-slate-300 transition-colors">
-                    +91 9490321363
+                  <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">WhatsApp</p>
+                  <a 
+                  href="https://wa.me/919490321363"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold text-white hover:text-slate-300"
+                  >
+                  Chat on WhatsApp
                   </a>
                 </div>
               </div>
@@ -187,8 +192,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Email Inquiry</p>
-                  <a href="mailto:bmsrao2001@gmail.com" className="text-sm font-bold text-white hover:text-slate-300 transition-colors break-all">
-                    bmsrao2001@gmail.com
+                  <a href="mailto:contact@plotstories.in" className="text-sm font-bold text-white hover:text-slate-300 transition-colors break-all">
+                    contact@plotstories.in
                   </a>
                 </div>
               </div>
@@ -246,7 +251,7 @@ export default function ContactForm() {
                       type="text"
                       name="fullName"
                       required
-                      placeholder="e.g. Madhav Rao"
+                      placeholder="e.g. Madhu Sudhana rao"
                       value={formData.fullName}
                       onChange={handleInputChange}
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-slate-400 transition-colors"
@@ -262,7 +267,7 @@ export default function ContactForm() {
                       type="tel"
                       name="phoneNumber"
                       required
-                      placeholder="e.g. +91 94903 21363"
+                      placeholder="Enter phone number"
                       value={formData.phoneNumber}
                       onChange={handleInputChange}
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-xs focus:outline-none focus:border-slate-400 transition-colors"
@@ -315,6 +320,11 @@ export default function ContactForm() {
                       onChange={handleInputChange}
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
                     >
+
+                    <option value="" disabled>
+                     Select option
+                    </option>
+
                       {interestOptions.map((opt, i) => (
                         <option key={i} value={opt} className="bg-[#0a0a0a] text-white">
                           {opt}
@@ -334,6 +344,11 @@ export default function ContactForm() {
                       onChange={handleInputChange}
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-slate-300 text-xs focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
                     >
+                    
+                    <option value="" disabled>
+                     Select option
+                    </option>
+
                       {locations.map((loc, i) => (
                         <option key={i} value={loc.name} className="bg-[#0a0a0a] text-white">
                           {loc.name}

@@ -116,17 +116,22 @@ export default function Footer({ onNavClick }: FooterProps) {
                 <Mail className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-slate-500 text-[9px] uppercase font-bold tracking-widest leading-none mb-1">Email</p>
-                  <a href="mailto:bmsrao2001@gmail.com" className="hover:text-white transition-colors">
-                    bmsrao2001@gmail.com
+                  <a href="mailto:contact@plotstories.in" className="hover:text-white transition-colors">
+                    contact@plotstories.in
                   </a>
                 </div>
               </li>
               <li className="flex items-start space-x-3 text-xs text-slate-400">
                 <Phone className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-slate-500 text-[9px] uppercase font-bold tracking-widest leading-none mb-1">Phone / WhatsApp</p>
-                  <a href="tel:+919490321363" className="hover:text-white transition-colors">
-                    +91 9490321363
+                  <p className="text-slate-500 text-[9px] uppercase font-bold tracking-widest leading-none mb-1">WhatsApp</p>
+                  <a
+                  href="https://wa.me/919490321363"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  >
+                  Chat on WhatsApp
                   </a>
                 </div>
               </li>
