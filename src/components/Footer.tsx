@@ -21,12 +21,12 @@ export default function Footer({ onNavClick }: FooterProps) {
   const socialLinks = [
     {
       name: "Facebook",
-      url: "https://www.facebook.com/bmsrelitestates/",
+      url: "https://www.facebook.com/officialplotstories/",
       icon: Facebook,
     },
     {
       name: "Instagram",
-      url: "https://www.instagram.com/madhu_realestate?igsh=aWEzaWFwd3ZmN2hs",
+      url: "https://www.instagram.com/plot_stories26?utm_source=qr&igsi=MXJ2ZnFuaXcwZGdhOQ==",
       icon: Instagram,
     },
     {
@@ -36,7 +36,7 @@ export default function Footer({ onNavClick }: FooterProps) {
     },
     {
       name: "YouTube",
-      url: "http://www.youtube.com/@madhu5238",
+      url: "http://www.youtube.com/@plotstories26",
       icon: Youtube,
     },
   ];
