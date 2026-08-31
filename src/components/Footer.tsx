@@ -63,7 +63,7 @@ export default function Footer({ onNavClick }: FooterProps) {
           {/* Logo Column */}
           <div className="md:col-span-5 flex flex-col justify-start">
             <div className="flex-shrink-0 cursor-pointer mb-6 flex items-center transition-transform duration-300 hover:scale-[1.03]" onClick={() => onNavClick("home")}>
-              <Logo className="text-slate-200 hover:text-white transition-colors" height="2.5rem" />
+              <Logo className="text-slate-200 hover:text-white transition-colors" height="3.0rem" />
             </div>
             <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6 max-w-sm font-light">
               PlotStories is a premium consultancy initiative helping customers secure authorized gated communities, verified residential layouts, high-growth plots, and agricultural farm lands in South India.

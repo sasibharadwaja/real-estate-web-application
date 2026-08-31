@@ -49,7 +49,7 @@ export default function Navbar({ onNavClick, activeSection }: NavbarProps) {
           <div className="flex items-center justify-between h-14">
             {/* Logo Section */}
             <div className="flex-shrink-0 cursor-pointer flex items-center transition-transform duration-300 hover:scale-[1.03]" onClick={() => handleItemClick("home")}>
-              <Logo className="text-slate-200 hover:text-white transition-colors" height="2.8rem" />
+              <Logo className="text-slate-200 hover:text-white transition-colors" height="3.5rem" />
             </div>
 
             {/* Desktop Navigation */}
