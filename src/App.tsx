@@ -22,7 +22,9 @@ export default function App() {
         top: offsetPosition,
         behavior: "smooth",
       });
-      setActiveSection(sectionId);
+      setActiveSection(
+        sectionId === "consultation-form" ? "contact" : sectionId
+      );
     }
   };
 

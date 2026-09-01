@@ -35,17 +35,16 @@ export default function Navbar({ onNavClick, activeSection }: NavbarProps) {
   return (
     <>
       {/* Premium Silver Gradient Accent Line at the absolute top */}
-      <div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400 to-transparent opacity-60 z-[60] pointer-events-none" />
 
       <nav
         id="main-navbar"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+        className={`fixed top-3 left-3 right-3 z-50 transition-all duration-300 rounded-3xl border ${
           isScrolled
-            ? "bg-[#0a0a0a]/95 border-white/10 shadow-lg shadow-black/60 backdrop-blur-md py-3"
-            : "bg-[#050505]/90 border-white/5 py-5 backdrop-blur-sm"
+            ? "bg-[#0a0f16]/55 border-white/15 shadow-lg shadow-black/30 backdrop-blur-xl py-3"
+            : "bg-[#0a0f16]/35 border-white/10 shadow-lg shadow-black/20 backdrop-blur-xl py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="px-4 sm:px-5 lg:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Logo Section */}
             <div className="flex-shrink-0 cursor-pointer flex items-center transition-transform duration-300 hover:scale-[1.03]" onClick={() => handleItemClick("home")}>
@@ -71,7 +70,7 @@ export default function Navbar({ onNavClick, activeSection }: NavbarProps) {
                 </button>
               ))}
               <button
-                onClick={() => handleItemClick("contact")}
+                onClick={() => handleItemClick("consultation-form")}
                 className="px-6 py-2.5 bg-gradient-to-r from-slate-400 to-slate-200 hover:from-slate-300 hover:to-white text-black text-xs font-bold uppercase tracking-widest rounded transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] active:scale-95 cursor-pointer"
               >
                 Get Consultation
@@ -114,7 +113,7 @@ export default function Navbar({ onNavClick, activeSection }: NavbarProps) {
             ))}
             <div className="px-4 mt-4">
               <button
-                onClick={() => handleItemClick("contact")}
+                onClick={() => handleItemClick("consultation-form")}
                 className="w-full py-3 bg-gradient-to-r from-slate-400 to-slate-200 text-black text-xs font-bold uppercase tracking-widest rounded text-center block transition-all"
               >
                 Get Consultation

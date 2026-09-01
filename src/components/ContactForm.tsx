@@ -212,7 +212,9 @@ export default function ContactForm() {
           </div>
 
           {/* Column 2: Interactive Form */}
-          <div className="lg:col-span-7 bg-[#0a0a0a] border border-white/10 p-8 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+          <div 
+          id="consultation-form"
+          className="lg:col-span-7 bg-[#0a0a0a] border border-white/10 p-8 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
             <h4 className="text-base font-semibold text-white mb-6 border-b border-white/5 pb-4">
               Consultation Request Form
             </h4>
