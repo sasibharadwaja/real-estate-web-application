@@ -47,11 +47,11 @@ export default function Hero({ onCtaclick }: HeroProps) {
       className="relative pt-24 bg-[#050505] overflow-hidden"
     >
       {/* Background and Ambient Light Effects */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-[#050505]/60 to-[#050505]/70" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/15 via-[#050505]/30 to-[#050505]/45" />
 
       {/* Premium Hero Image with elegant diagonal slit & overlay */}
       <div
-        className="absolute inset-0 z-0 opacity-65 bg-cover bg-center bg-no-repeat brightness-100"
+        className="absolute inset-0 z-0 opacity-75 bg-cover bg-center bg-no-repeat brightness-105"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000')`,
         }}
@@ -83,7 +83,7 @@ export default function Hero({ onCtaclick }: HeroProps) {
       </div>
 
       {/* Silver metallic mesh-like linear gradient overlay */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#050505]/75 via-[#050505]/25 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 md:pt-28 md:pb-32">
         <div className="max-w-3xl">
@@ -104,7 +104,7 @@ export default function Hero({ onCtaclick }: HeroProps) {
           </h1>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-400 font-light leading-relaxed mb-10 max-w-2xl">
+          <p className="text-sm sm:text-base md:text-lg text-white font-light leading-relaxed mb-10 max-w-2xl">
             Secure your legacy. Specializing in high-yield plots, approved
             layouts, and residential masterpieces across South India with
             absolute transparency and unmatched professional expertise.
