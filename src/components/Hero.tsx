@@ -96,7 +96,7 @@ export default function Hero({ onCtaclick }: HeroProps) {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => onCtaclick("projects")}
-              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase tracking-widest text-xs rounded shadow-[0_8px_25px_rgba(15,23,42,0.15)] transition-all duration-300 flex items-center justify-center space-x-2 active:scale-95 cursor-pointer"
+              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase tracking-widest text-xs rounded-[1.25rem] shadow-[0_8px_25px_rgba(15,23,42,0.15)] transition-all duration-300 flex items-center justify-center space-x-2 active:scale-95 cursor-pointer"
             >
               <span>View Projects</span>
               <ArrowRight className="w-4 h-4" />
@@ -104,7 +104,7 @@ export default function Hero({ onCtaclick }: HeroProps) {
 
             <button
               onClick={() => onCtaclick("contact")}
-              className="px-8 py-4 bg-white/70 backdrop-blur-[3px] hover:bg-white/85 text-slate-900 font-bold uppercase tracking-widest text-xs rounded border border-white/80 hover:border-white shadow-sm transition-all duration-300 flex items-center justify-center active:scale-95 cursor-pointer"
+              className="px-8 py-4 bg-white/70 backdrop-blur-[3px] hover:bg-white/85 text-slate-900 font-bold uppercase tracking-widest text-xs rounded-[1.25rem] border border-white/80 hover:border-white shadow-sm transition-all duration-300 flex items-center justify-center active:scale-95 cursor-pointer"
             >
               Contact Us
             </button>
