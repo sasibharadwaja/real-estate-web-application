@@ -113,7 +113,7 @@ export default function Navbar({
             {/* Desktop Navigation */}
             <div
               ref={navContainerRef}
-              className="hidden md:flex items-center space-x-8 relative"
+              className="hidden md:flex items-center space-x-3 relative"
             >
               {/* Moving Glass Bubble */}
               <span

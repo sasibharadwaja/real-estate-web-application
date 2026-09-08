@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import heroImage from "../../assets/hero-city.png";
 import {
   ShieldCheck,
@@ -14,6 +14,8 @@ interface HeroProps {
 }
 
 export default function Hero({ onCtaclick }: HeroProps) {
+  const heroImageRef = useRef<HTMLDivElement>(null);
+
   const highlights = [
     {
       title: "Trusted Guidance",
@@ -42,6 +44,57 @@ export default function Hero({ onCtaclick }: HeroProps) {
     },
   ];
 
+  /*
+   * Smooth scroll-based hero image zoom
+   *
+   * At the top:
+   *   scale = 1.00
+   *
+   * While scrolling through the hero:
+   *   scale gradually increases
+   *
+   * Maximum:
+   *   scale = 1.08
+   *
+   * Scrolling back up reverses the effect.
+   */
+  useEffect(() => {
+    const image = heroImageRef.current;
+
+    if (!image) return;
+
+    let animationFrame = 0;
+    let currentScale = 1;
+    let targetScale = 1;
+
+    const updateZoom = () => {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+
+      // Progress through the hero section
+      const progress = Math.min(
+        Math.max(scrollY / heroHeight, 0),
+        1
+      );
+
+      // Maximum zoom = 8%
+      targetScale = 1 + progress * 0.08;
+
+      // Smoothly catch up to the target scale
+      currentScale += (targetScale - currentScale) * 0.06;
+
+      image.style.transform = `scale(${currentScale})`;
+
+      animationFrame = requestAnimationFrame(updateZoom);
+    };
+
+    animationFrame = requestAnimationFrame(updateZoom);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
   return (
     <section
       id="home"
@@ -49,9 +102,12 @@ export default function Hero({ onCtaclick }: HeroProps) {
     >
       {/* Hero Image */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        ref={heroImageRef}
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat will-change-transform"
         style={{
           backgroundImage: `url(${heroImage})`,
+          transform: "scale(1)",
+          transformOrigin: "center center",
         }}
       />
 
