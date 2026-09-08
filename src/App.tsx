@@ -15,13 +15,15 @@ export default function App() {
     const element = document.getElementById(sectionId);
     if (element) {
       const offset = 80; // height of our navbar
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
+
       setActiveSection(
         sectionId === "consultation-form" ? "contact" : sectionId
       );
@@ -32,13 +34,15 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "projects", "services", "about", "contact"];
-      const scrollPosition = window.scrollY + 120; // adding threshold offset
+      const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
         const el = document.getElementById(section);
+
         if (el) {
           const top = el.offsetTop;
           const height = el.offsetHeight;
+
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
             break;
@@ -48,14 +52,13 @@ export default function App() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Run once initially
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="bg-black text-white min-h-screen font-sans selection:bg-neutral-800 selection:text-white scroll-smooth antialiased">
+    <div className="bg-[#f7f9fc] text-slate-900 min-h-screen font-sans selection:bg-slate-200 selection:text-slate-900 scroll-smooth antialiased">
       {/* Sticky Header */}
       <Navbar onNavClick={handleNavClick} activeSection={activeSection} />
 
